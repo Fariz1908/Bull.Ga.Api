@@ -1,0 +1,14 @@
+<Solution>
+  <Project Path="Bull.Ga.Api/Bull.Ga.Api.csproj">
+    <BuildDependency Project="Bull.Ga.Business/Bull.Ga.Business.csproj" />
+    <BuildDependency Project="Bull.Ga.Common/Bull.Ga.Common.csproj" />
+  </Project>
+  <Project Path="Bull.Ga.Business/Bull.Ga.Business.csproj">
+    <BuildDependency Project="Bull.Ga.Common/Bull.Ga.Common.csproj" />
+    <BuildDependency Project="Bull.Ga.Data/Bull.Ga.Data.csproj" />
+  </Project>
+  <Project Path="Bull.Ga.Common/Bull.Ga.Common.csproj">
+    <BuildDependency Project="Bull.Ga.Data/Bull.Ga.Data.csproj" />
+  </Project>
+  <Project Path="Bull.Ga.Data/Bull.Ga.Data.csproj" />
+</Solution>
