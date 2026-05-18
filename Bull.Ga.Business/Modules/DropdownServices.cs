@@ -1,9 +1,6 @@
 ﻿using Bull.Ga.Business.Interfaces;
 using Bull.Ga.Common.DtoModels;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bull.Ga.Business.Modules
 {
@@ -16,6 +13,37 @@ namespace Bull.Ga.Business.Modules
         {
             _domainServices = domainServices;
             _logger = logger;
+        }
+
+        public async Task<List<DropdownResponse>> AssetCatgories(string? filter)
+        {
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    var result = new List<DropdownResponse>();
+
+                    var assetCategories = (from a in _domainServices.GetAllAssetCategories()
+                                        where a.Name.ToLower().Contains((filter ?? "").ToLower())
+                                        orderby a.Name ascending
+                                        select new DropdownResponse
+                                        {
+                                            Key = a.Id.ToString(),
+                                            Value = a.Name ?? string.Empty
+                                        }).ToList();
+
+                    if (assetCategories.Count > 0)
+                        result = assetCategories;
+
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"method: AssetCatgories(), " +
+                    $"message: {ex.Message}");
+                    throw;
+                }
+            }).ConfigureAwait(false);
         }
 
         public async Task<List<DropdownResponse>> DepreciationMethods(string? filter)
@@ -42,7 +70,7 @@ namespace Bull.Ga.Business.Modules
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError($"method: GetDdMaritalStatus(), " +
+                    _logger.LogError($"method: DepreciationMethods(), " +
                     $"message: {ex.Message}");
                     throw;
                 }

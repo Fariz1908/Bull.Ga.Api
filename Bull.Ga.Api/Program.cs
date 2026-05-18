@@ -9,7 +9,6 @@ using Bull.Ga.Common.Helpers;
 using Bull.Ga.Common.Utils;
 using Bull.Ga.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
@@ -47,8 +46,8 @@ builder.Services.AddSwaggerGen(c =>
         Description = "API General Affairs Apps",
         Contact = new OpenApiContact
         {
-            Name = "Bull General Affairs API",
-            Email = String.Empty
+            Name = "IT Administrator",
+            Email = "it.staff@bull.co.id"
         }
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -94,11 +93,15 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 // Dependency Injection
 builder.Services.AddTransient<IDomainServices, DomainServices>();
 
+builder.Services.AddScoped<IAssetCategoryFacades, AssetCategoryFacades>();
 builder.Services.AddScoped<IDropdownFacades, DropdownFacades>();
 
+builder.Services.AddScoped<IAssetCategoryServices, AssetCategoryServices>();
 builder.Services.AddScoped<IDropdownServices, DropdownServices>();
+builder.Services.AddScoped<IProfileServices, ProfileServices>();
 
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCors(options =>
 {

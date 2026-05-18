@@ -2,8 +2,8 @@
 
 namespace Bull.Ga.Business.Interfaces
 {
-    public interface IUserServices
+    public interface IProfileServices
     {
-        UserAuth? GetUserById(string userId);
+        UserAuth GetUserContext();
     }
 }

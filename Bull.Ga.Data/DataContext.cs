@@ -55,7 +55,9 @@ public partial class DataContext : DbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.FidDepreciationMethodNavigation).WithMany(p => p.AssetCategories).HasConstraintName("FK_Asset_Categories_Depreciation_Methods");
+            entity.HasOne(d => d.FidDepreciationMethodNavigation).WithMany(p => p.AssetCategories)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Asset_Categories_Depreciation_Methods");
         });
 
         modelBuilder.Entity<DeliveryOrder>(entity =>
