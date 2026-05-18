@@ -12,16 +12,16 @@ public partial class AssetCategory
 
     [StringLength(100)]
     [Unicode(false)]
-    public string? Name { get; set; }
+    public string Name { get; set; } = null!;
 
     [Column("Useful_Life_Year")]
-    public int? UsefulLifeYear { get; set; }
+    public int UsefulLifeYear { get; set; }
 
     [Column("Fid_Depreciation_Method")]
-    public int? FidDepreciationMethod { get; set; }
+    public int FidDepreciationMethod { get; set; }
 
     [Column("Residual_Value")]
-    public int? ResidualValue { get; set; }
+    public int ResidualValue { get; set; }
 
     [Column("Is_Active")]
     public bool? IsActive { get; set; }
@@ -29,10 +29,10 @@ public partial class AssetCategory
     [Column("Created_By")]
     [StringLength(50)]
     [Unicode(false)]
-    public string? CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = null!;
 
     [Column("Created_At", TypeName = "datetime")]
-    public DateTime? CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     [Column("Updated_By")]
     [StringLength(50)]
@@ -44,7 +44,7 @@ public partial class AssetCategory
 
     [ForeignKey("FidDepreciationMethod")]
     [InverseProperty("AssetCategories")]
-    public virtual DepreciationMethod? FidDepreciationMethodNavigation { get; set; }
+    public virtual DepreciationMethod FidDepreciationMethodNavigation { get; set; } = null!;
 
     [InverseProperty("FidAssetCategoryNavigation")]
     public virtual ICollection<Item> Items { get; set; } = new List<Item>();

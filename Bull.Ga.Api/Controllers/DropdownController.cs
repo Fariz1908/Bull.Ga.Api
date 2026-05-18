@@ -1,7 +1,5 @@
 ﻿using Bull.Ga.Api.Authorization;
-using Bull.Ga.Business.Facades;
 using Bull.Ga.Business.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bull.Ga.Api.Controllers
@@ -15,6 +13,16 @@ namespace Bull.Ga.Api.Controllers
         public DropdownController(IDropdownFacades dropdownFacades)
         {
             _dropdownFacades = dropdownFacades;
+        }
+
+        [HttpGet("AssetCategories")]
+        [Authorize]
+        public async Task<ActionResult> AssetCategories(string? filter)
+        {
+            var response = await _dropdownFacades.AssetCatgories(filter);
+
+            return Ok(response);
+
         }
 
         [HttpGet("DepreciationMethods")]
