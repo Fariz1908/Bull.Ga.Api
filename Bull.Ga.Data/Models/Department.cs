@@ -11,11 +11,11 @@ public partial class Department
 
     [StringLength(20)]
     [Unicode(false)]
-    public string? Code { get; set; }
+    public string Code { get; set; } = null!;
 
     [StringLength(75)]
     [Unicode(false)]
-    public string? Name { get; set; }
+    public string Name { get; set; } = null!;
 
     [Column("Is_Active")]
     public bool? IsActive { get; set; }
@@ -23,10 +23,10 @@ public partial class Department
     [Column("Created_By")]
     [StringLength(50)]
     [Unicode(false)]
-    public string? CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = null!;
 
     [Column("Created_At", TypeName = "datetime")]
-    public DateTime? CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     [Column("Updated_By")]
     [StringLength(50)]
