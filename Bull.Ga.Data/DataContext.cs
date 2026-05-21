@@ -18,11 +18,15 @@ public partial class DataContext : DbContext
 
     public virtual DbSet<DeliveryOrderDetail> DeliveryOrderDetails { get; set; }
 
+    public virtual DbSet<Department> Departments { get; set; }
+
     public virtual DbSet<DepreciationLog> DepreciationLogs { get; set; }
 
     public virtual DbSet<DepreciationMethod> DepreciationMethods { get; set; }
 
     public virtual DbSet<Item> Items { get; set; }
+
+    public virtual DbSet<Location> Locations { get; set; }
 
     public virtual DbSet<LocationLog> LocationLogs { get; set; }
 
@@ -76,13 +80,18 @@ public partial class DataContext : DbContext
             entity.HasOne(d => d.FidDeliveryOrderNavigation).WithMany(p => p.DeliveryOrderDetails).HasConstraintName("FK_Delivery_Order_Detail_Delivery_Order");
         });
 
+        modelBuilder.Entity<Department>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Pkey_Departments");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+        });
+
         modelBuilder.Entity<DepreciationLog>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Pkey_Depreciation_Log");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-
-            entity.HasOne(d => d.FidAssetNavigation).WithMany(p => p.DepreciationLogs).HasConstraintName("FK_Depreciation_Log_Assets");
         });
 
         modelBuilder.Entity<DepreciationMethod>(entity =>
@@ -101,13 +110,18 @@ public partial class DataContext : DbContext
             entity.HasOne(d => d.FidAssetCategoryNavigation).WithMany(p => p.Items).HasConstraintName("FK_Items_Asset_Categories");
         });
 
+        modelBuilder.Entity<Location>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Pkey_Locations");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+        });
+
         modelBuilder.Entity<LocationLog>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Pkey_Location_Log");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-
-            entity.HasOne(d => d.FidAssetNavigation).WithMany(p => p.LocationLogs).HasConstraintName("FK_Location_Log_Assets");
         });
 
         modelBuilder.Entity<MaintenanceLog>(entity =>
@@ -115,8 +129,6 @@ public partial class DataContext : DbContext
             entity.HasKey(e => e.Id).HasName("Pkey_Maintenance_Log");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-
-            entity.HasOne(d => d.FidAssetNavigation).WithMany(p => p.MaintenanceLogs).HasConstraintName("FK_Maintenance_Log_Assets");
         });
 
         modelBuilder.Entity<Po>(entity =>

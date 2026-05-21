@@ -5,7 +5,8 @@ namespace Bull.Ga.Business.Interfaces
 {
     public interface IDropdownFacades
     {
-        Task<ResultBase<List<DropdownResponse>>> DepreciationMethods(string? filter);
         Task<ResultBase<List<DropdownResponse>>> AssetCatgories(string? filter);
+        Task<ResultBase<List<DropdownResponse>>> DepreciationMethods(string? filter);
+        Task<ResultBase<List<DropdownResponse>>> Locations(string? filter);
     }
 }

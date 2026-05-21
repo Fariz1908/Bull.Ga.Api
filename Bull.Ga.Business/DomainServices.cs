@@ -2,7 +2,6 @@
 using Bull.Ga.Data;
 using Bull.Ga.Data.Models;
 using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace Bull.Ga.Business
 {
@@ -22,9 +21,29 @@ namespace Bull.Ga.Business
             return _dataContext.AssetCategories;
         }
 
+        public IQueryable<Asset> GetAllAssets()
+        {
+            return _dataContext.Assets;
+        }
+
+        public IQueryable<Department> GetAllDepartments()
+        {
+            return _dataContext.Departments;
+        }
+
         public IQueryable<DepreciationMethod> GetAllDepreciationMethods()
         {
             return _dataContext.DepreciationMethods;
+        }
+
+        public IQueryable<Location> GetAllLocations()
+        {
+            return _dataContext.Locations;
+        }
+
+        public IQueryable<LocationLog> GetAllLocationLogs()
+        {
+            return _dataContext.LocationLogs;
         }
 
         public void InsertAssetCategory(AssetCategory model)
@@ -35,7 +54,7 @@ namespace Bull.Ga.Business
             }
             catch (Exception ex)
             {
-                Log.Logger.Error($"Method: InsertAssetCategory(), " +
+                _logger.LogError($"Method: InsertAssetCategory(), " +
                     $"model: {model}, " +
                     $"message: {ex.Message}");
                 throw;
@@ -50,7 +69,127 @@ namespace Bull.Ga.Business
             }
             catch (Exception ex)
             {
-                Log.Logger.Error($"Method: UpdateAssetCategory(), " +
+                _logger.LogError($"Method: UpdateAssetCategory(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void InsertAsset(Asset model)
+        {
+            try
+            {
+                _dataContext.Assets.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: InsertAsset(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void UpdateAsset(Asset model)
+        {
+            try
+            {
+                _dataContext.Assets.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: UpdateAsset(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void InsertDepartment(Department model)
+        {
+            try
+            {
+                _dataContext.Departments.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: InsertDepartment(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void UpdateDepartment(Department model)
+        {
+            try
+            {
+                _dataContext.Departments.Update(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: UpdateDepartment(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void InsertLocation(Location model)
+        {
+            try
+            {
+                _dataContext.Locations.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: InsertLocation(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void UpdateLocation(Location model)
+        {
+            try
+            {
+                _dataContext.Locations.Update(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: UpdateLocation(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void InsertLocationLog(LocationLog model)
+        {
+            try
+            {
+                _dataContext.LocationLogs.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: InsertLocationLog(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void UpdateLocationLog(LocationLog model)
+        {
+            try
+            {
+                _dataContext.LocationLogs.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: UpdateLocationLog(), " +
                     $"model: {model}, " +
                     $"message: {ex.Message}");
                 throw;

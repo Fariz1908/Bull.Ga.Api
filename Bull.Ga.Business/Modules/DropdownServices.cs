@@ -76,5 +76,37 @@ namespace Bull.Ga.Business.Modules
                 }
             }).ConfigureAwait(false);
         }
+
+        public async Task<List<DropdownResponse>> Locations(string? filter)
+        {
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    var result = new List<DropdownResponse>();
+
+                    var locations = (from a in _domainServices.GetAllLocations()
+                                               where a.WorkLocation.ToLower().Contains((filter ?? "").ToLower()) ||
+                                                     a.Floor.ToLower().Contains((filter ?? "").ToLower())
+                                               orderby a.WorkLocation, a.Floor ascending
+                                               select new DropdownResponse
+                                               {
+                                                   Key = a.Id.ToString(),
+                                                   Value = string.Concat(a.WorkLocation ?? string.Empty, " - ", a.Floor ?? string.Empty)
+                                               }).ToList();
+
+                    if (locations.Count > 0)
+                        result = locations;
+
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"method: DepreciationMethods(), " +
+                    $"message: {ex.Message}");
+                    throw;
+                }
+            }).ConfigureAwait(false);
+        }
     }
 }

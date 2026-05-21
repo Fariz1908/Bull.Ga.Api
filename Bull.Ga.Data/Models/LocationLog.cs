@@ -13,13 +13,13 @@ public partial class LocationLog
     [Column("Transcation_No")]
     [StringLength(50)]
     [Unicode(false)]
-    public string? TranscationNo { get; set; }
+    public string TranscationNo { get; set; } = null!;
 
     [Column("Fid_Asset")]
     public Guid? FidAsset { get; set; }
 
     [Column("Submitted_Date")]
-    public DateOnly? SubmittedDate { get; set; }
+    public DateOnly SubmittedDate { get; set; }
 
     [Column("Return_Date")]
     public DateOnly? ReturnDate { get; set; }
@@ -35,10 +35,10 @@ public partial class LocationLog
     [Column("Created_By")]
     [StringLength(50)]
     [Unicode(false)]
-    public string? CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = null!;
 
     [Column("Created_At", TypeName = "datetime")]
-    public DateTime? CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     [Column("Updated_By")]
     [StringLength(50)]
@@ -47,8 +47,4 @@ public partial class LocationLog
 
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
-
-    [ForeignKey("FidAsset")]
-    [InverseProperty("LocationLogs")]
-    public virtual Asset? FidAssetNavigation { get; set; }
 }

@@ -60,5 +60,29 @@ namespace Bull.Ga.Business.Facades
 
             return errorResponse;
         }
+
+        public async Task<ResultBase<List<DropdownResponse>>> Locations(string? filter)
+        {
+            var result = await _dropDownServices.Locations(filter);
+
+            if (result != null)
+            {
+                return new ResultBase<List<DropdownResponse>>
+                {
+                    Success = true,
+                    Message = "Sukses",
+                    Model = result
+                };
+            }
+
+            var errorResponse = new ResultBase<List<DropdownResponse>>
+            {
+                Success = false,
+                Message = "Data tidak ditemukan",
+                Model = result
+            };
+
+            return errorResponse;
+        }
     }
 }
