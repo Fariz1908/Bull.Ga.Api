@@ -33,6 +33,7 @@ builder.Services.AddControllers().AddJsonOptions(x =>
     // serialize enums as strings in api responses (e.g. Role)
     x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     x.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+    x.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
 });
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -95,9 +96,11 @@ builder.Services.AddTransient<IDomainServices, DomainServices>();
 
 builder.Services.AddScoped<IAssetCategoryFacades, AssetCategoryFacades>();
 builder.Services.AddScoped<IDropdownFacades, DropdownFacades>();
+builder.Services.AddScoped<ILocationFacades, LocationFacades>();
 
 builder.Services.AddScoped<IAssetCategoryServices, AssetCategoryServices>();
 builder.Services.AddScoped<IDropdownServices, DropdownServices>();
+builder.Services.AddScoped<ILocationServices, LocationServices>();
 builder.Services.AddScoped<IProfileServices, ProfileServices>();
 
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();

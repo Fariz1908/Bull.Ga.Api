@@ -33,5 +33,14 @@ namespace Bull.Ga.Api.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("Locations")]
+        [Authorize]
+        public async Task<ActionResult> Locations(string? filter)
+        {
+            var response = await _dropdownFacades.Locations(filter);
+
+            return Ok(response);
+        }
     }
 }

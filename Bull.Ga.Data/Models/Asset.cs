@@ -9,6 +9,11 @@ public partial class Asset
     [Key]
     public Guid Id { get; set; }
 
+    [Column("Asset_No")]
+    [StringLength(25)]
+    [Unicode(false)]
+    public string AssetNo { get; set; } = null!;
+
     [Column("Fid_Item")]
     public Guid? FidItem { get; set; }
 
@@ -61,9 +66,6 @@ public partial class Asset
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
 
-    [InverseProperty("FidAssetNavigation")]
-    public virtual ICollection<DepreciationLog> DepreciationLogs { get; set; } = new List<DepreciationLog>();
-
     [ForeignKey("FidDeliveryOrder")]
     [InverseProperty("Assets")]
     public virtual DeliveryOrder? FidDeliveryOrderNavigation { get; set; }
@@ -71,10 +73,4 @@ public partial class Asset
     [ForeignKey("FidItem")]
     [InverseProperty("Assets")]
     public virtual Item? FidItemNavigation { get; set; }
-
-    [InverseProperty("FidAssetNavigation")]
-    public virtual ICollection<LocationLog> LocationLogs { get; set; } = new List<LocationLog>();
-
-    [InverseProperty("FidAssetNavigation")]
-    public virtual ICollection<MaintenanceLog> MaintenanceLogs { get; set; } = new List<MaintenanceLog>();
 }

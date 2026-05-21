@@ -2,7 +2,6 @@
 using Bull.Ga.Data;
 using Bull.Ga.Data.Models;
 using Microsoft.Extensions.Logging;
-using Serilog;
 
 namespace Bull.Ga.Business
 {
@@ -27,9 +26,19 @@ namespace Bull.Ga.Business
             return _dataContext.Assets;
         }
 
+        public IQueryable<Department> GetAllDepartments()
+        {
+            return _dataContext.Departments;
+        }
+
         public IQueryable<DepreciationMethod> GetAllDepreciationMethods()
         {
             return _dataContext.DepreciationMethods;
+        }
+
+        public IQueryable<Location> GetAllLocations()
+        {
+            return _dataContext.Locations;
         }
 
         public IQueryable<LocationLog> GetAllLocationLogs()
@@ -45,7 +54,7 @@ namespace Bull.Ga.Business
             }
             catch (Exception ex)
             {
-                Log.Logger.Error($"Method: InsertAssetCategory(), " +
+                _logger.LogError($"Method: InsertAssetCategory(), " +
                     $"model: {model}, " +
                     $"message: {ex.Message}");
                 throw;
@@ -60,7 +69,7 @@ namespace Bull.Ga.Business
             }
             catch (Exception ex)
             {
-                Log.Logger.Error($"Method: UpdateAssetCategory(), " +
+                _logger.LogError($"Method: UpdateAssetCategory(), " +
                     $"model: {model}, " +
                     $"message: {ex.Message}");
                 throw;
@@ -75,7 +84,7 @@ namespace Bull.Ga.Business
             }
             catch (Exception ex)
             {
-                Log.Logger.Error($"Method: InsertAsset(), " +
+                _logger.LogError($"Method: InsertAsset(), " +
                     $"model: {model}, " +
                     $"message: {ex.Message}");
                 throw;
@@ -90,7 +99,67 @@ namespace Bull.Ga.Business
             }
             catch (Exception ex)
             {
-                Log.Logger.Error($"Method: UpdateAsset(), " +
+                _logger.LogError($"Method: UpdateAsset(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void InsertDepartment(Department model)
+        {
+            try
+            {
+                _dataContext.Departments.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: InsertDepartment(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void UpdateDepartment(Department model)
+        {
+            try
+            {
+                _dataContext.Departments.Update(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: UpdateDepartment(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void InsertLocation(Location model)
+        {
+            try
+            {
+                _dataContext.Locations.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: InsertLocation(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void UpdateLocation(Location model)
+        {
+            try
+            {
+                _dataContext.Locations.Update(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: UpdateLocation(), " +
                     $"model: {model}, " +
                     $"message: {ex.Message}");
                 throw;
@@ -105,7 +174,7 @@ namespace Bull.Ga.Business
             }
             catch (Exception ex)
             {
-                Log.Logger.Error($"Method: InsertLocationLog(), " +
+                _logger.LogError($"Method: InsertLocationLog(), " +
                     $"model: {model}, " +
                     $"message: {ex.Message}");
                 throw;
@@ -120,7 +189,7 @@ namespace Bull.Ga.Business
             }
             catch (Exception ex)
             {
-                Log.Logger.Error($"Method: UpdateLocationLog(), " +
+                _logger.LogError($"Method: UpdateLocationLog(), " +
                     $"model: {model}, " +
                     $"message: {ex.Message}");
                 throw;

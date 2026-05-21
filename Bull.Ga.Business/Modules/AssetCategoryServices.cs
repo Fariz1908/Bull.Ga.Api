@@ -114,6 +114,7 @@ namespace Bull.Ga.Business.Modules
                 var userContext = _profileServices.GetUserContext();
                 var currentUser = userContext.UserId;
                 var currentApp = userContext.AppSource;
+
                 try
                 {
                     var result = new ResultBase
@@ -168,7 +169,7 @@ namespace Bull.Ga.Business.Modules
                             CreatedAt = now,
                         };
 
-                        _domainServices.UpdateAssetCategory(assetCategory);
+                        _domainServices.InsertAssetCategory(assetCategory);
                     }
 
                     _domainServices.SaveChanges();

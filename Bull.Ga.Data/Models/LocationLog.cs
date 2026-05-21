@@ -47,8 +47,4 @@ public partial class LocationLog
 
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
-
-    [ForeignKey("FidAsset")]
-    [InverseProperty("LocationLogs")]
-    public virtual Asset? FidAssetNavigation { get; set; }
 }

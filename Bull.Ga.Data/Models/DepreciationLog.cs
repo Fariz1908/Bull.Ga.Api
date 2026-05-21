@@ -20,8 +20,4 @@ public partial class DepreciationLog
 
     [Column("Book_Value")]
     public int? BookValue { get; set; }
-
-    [ForeignKey("FidAsset")]
-    [InverseProperty("DepreciationLogs")]
-    public virtual Asset? FidAssetNavigation { get; set; }
 }
