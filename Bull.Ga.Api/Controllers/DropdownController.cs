@@ -25,6 +25,15 @@ namespace Bull.Ga.Api.Controllers
 
         }
 
+        [HttpGet("Companies")]
+        [Authorize]
+        public async Task<ActionResult> Companies(string? filter)
+        {
+            var response = await _dropdownFacades.Companies(filter);
+
+            return Ok(response);
+        }
+
         [HttpGet("Departments")]
         [Authorize]
         public async Task<ActionResult> Departments(string? filter)

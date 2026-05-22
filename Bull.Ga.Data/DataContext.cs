@@ -14,6 +14,8 @@ public partial class DataContext : DbContext
 
     public virtual DbSet<AssetCategory> AssetCategories { get; set; }
 
+    public virtual DbSet<Company> Companies { get; set; }
+
     public virtual DbSet<DeliveryOrder> DeliveryOrders { get; set; }
 
     public virtual DbSet<DeliveryOrderDetail> DeliveryOrderDetails { get; set; }
@@ -62,6 +64,13 @@ public partial class DataContext : DbContext
             entity.HasOne(d => d.FidDepreciationMethodNavigation).WithMany(p => p.AssetCategories)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Asset_Categories_Depreciation_Methods");
+        });
+
+        modelBuilder.Entity<Company>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Pkey_Companies");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
         });
 
         modelBuilder.Entity<DeliveryOrder>(entity =>

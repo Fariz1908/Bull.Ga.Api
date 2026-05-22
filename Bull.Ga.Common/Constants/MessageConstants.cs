@@ -9,6 +9,10 @@
         public const string S_EXISTS_ASSET_CATEGORY = "Asset category name already exists";
         public const string S_SAVED_ASSET_CATEGORY_SUCCESS = "Asset category saved successfully";
 
+        // Company
+        public const string S_EXISTS_COMPANY = "Company code/name already exists";
+        public const string S_SAVED_COMPANY_SUCCESS = "Company saved successfully";
+
         // Department
         public const string S_EXISTS_DEPARTMENT = "Department already exists";
         public const string S_SAVED_DEPARTMENT_SUCCESS = "Department saved successfully";

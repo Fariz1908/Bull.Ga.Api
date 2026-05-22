@@ -95,11 +95,13 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 builder.Services.AddTransient<IDomainServices, DomainServices>();
 
 builder.Services.AddScoped<IAssetCategoryFacades, AssetCategoryFacades>();
+builder.Services.AddScoped<ICompanyFacades, CompanyFacades>();
 builder.Services.AddScoped<IDepartmentFacades, DepartmentFacades>();
 builder.Services.AddScoped<IDropdownFacades, DropdownFacades>();
 builder.Services.AddScoped<ILocationFacades, LocationFacades>();
 
 builder.Services.AddScoped<IAssetCategoryServices, AssetCategoryServices>();
+builder.Services.AddScoped<ICompanyServices, CompanyServices>();
 builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
 builder.Services.AddScoped<IDropdownServices, DropdownServices>();
 builder.Services.AddScoped<ILocationServices, LocationServices>();
