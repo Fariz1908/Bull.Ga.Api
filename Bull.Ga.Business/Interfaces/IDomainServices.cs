@@ -7,6 +7,7 @@ namespace Bull.Ga.Business.Interfaces
         // Read Models
         IQueryable<AssetCategory> GetAllAssetCategories();
         IQueryable<Asset> GetAllAssets();
+        IQueryable<Company> GetAllCompanies();
         IQueryable<Department> GetAllDepartments();
         IQueryable<DepreciationMethod> GetAllDepreciationMethods();
         IQueryable<Location> GetAllLocations();
@@ -17,6 +18,8 @@ namespace Bull.Ga.Business.Interfaces
         void UpdateAssetCategory(AssetCategory model);
         void InsertAsset(Asset model);
         void UpdateAsset(Asset model);
+        void InsertCompany(Company model);
+        void UpdateCompany(Company model);
         void InsertDepartment(Department model);
         void UpdateDepartment(Department model);
         void InsertLocation(Location model);

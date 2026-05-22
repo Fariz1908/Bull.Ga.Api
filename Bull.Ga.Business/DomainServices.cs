@@ -26,6 +26,11 @@ namespace Bull.Ga.Business
             return _dataContext.Assets;
         }
 
+        public IQueryable<Company> GetAllCompanies()
+        {
+            return _dataContext.Companies;
+        }
+
         public IQueryable<Department> GetAllDepartments()
         {
             return _dataContext.Departments;
@@ -100,6 +105,36 @@ namespace Bull.Ga.Business
             catch (Exception ex)
             {
                 _logger.LogError($"Method: UpdateAsset(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void InsertCompany(Company model)
+        {
+            try
+            {
+                _dataContext.Companies.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: InsertCompany(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void UpdateCompany(Company model)
+        {
+            try
+            {
+                _dataContext.Companies.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: UpdateCompany(), " +
                     $"model: {model}, " +
                     $"message: {ex.Message}");
                 throw;
