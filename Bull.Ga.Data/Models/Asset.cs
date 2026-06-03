@@ -69,8 +69,4 @@ public partial class Asset
     [ForeignKey("FidDeliveryOrder")]
     [InverseProperty("Assets")]
     public virtual DeliveryOrder? FidDeliveryOrderNavigation { get; set; }
-
-    [ForeignKey("FidItem")]
-    [InverseProperty("Assets")]
-    public virtual Item? FidItemNavigation { get; set; }
 }

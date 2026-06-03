@@ -41,6 +41,11 @@ namespace Bull.Ga.Business
             return _dataContext.DepreciationMethods;
         }
 
+        public IQueryable<Item> GetAllItems()
+        {
+            return _dataContext.Items;
+        }
+
         public IQueryable<Location> GetAllLocations()
         {
             return _dataContext.Locations;
@@ -165,6 +170,36 @@ namespace Bull.Ga.Business
             catch (Exception ex)
             {
                 _logger.LogError($"Method: UpdateDepartment(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void InsertItem(Item model)
+        {
+            try
+            {
+                _dataContext.Items.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: InsertItem(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void UpdateItem(Item model)
+        {
+            try
+            {
+                _dataContext.Items.Update(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: UpdateItem(), " +
                     $"model: {model}, " +
                     $"message: {ex.Message}");
                 throw;

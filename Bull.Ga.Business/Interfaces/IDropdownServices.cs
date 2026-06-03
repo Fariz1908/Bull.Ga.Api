@@ -1,5 +1,4 @@
-﻿using Bull.Ga.Common.AppModels;
-using Bull.Ga.Common.DtoModels;
+﻿using Bull.Ga.Common.DtoModels;
 
 namespace Bull.Ga.Business.Interfaces
 {
@@ -9,6 +8,7 @@ namespace Bull.Ga.Business.Interfaces
         Task<List<DropdownResponse>> Companies(string? filter);
         Task<List<DropdownResponse>> Departments(string? filter);
         Task<List<DropdownResponse>> DepreciationMethods(string? filter);
+        Task<List<DropdownResponse>> Items(string? filter);
         Task<List<DropdownResponse>> Locations(string? filter);
     }
 }

@@ -2,21 +2,20 @@
 using Bull.Ga.Common.AppModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Bull.Ga.Business.Modules
 {
-    public class ProfileServices :IProfileServices
+    public class ProfileServices : IProfileServices
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<ProfileServices> _logger;
         private readonly AppSettings _appSettings;
-        
-        public ProfileServices(IHttpContextAccessor httpContextAccessor, ILogger<ProfileServices> logger, IOptions<AppSettings> appSettings)
+
+        public ProfileServices(IHttpContextAccessor httpContextAccessor, AppSettings appSettings, ILogger<ProfileServices> logger)
         {
             _httpContextAccessor = httpContextAccessor;
+            _appSettings = appSettings;
             _logger = logger;
-            _appSettings = appSettings.Value;
         }
 
         public UserAuth GetUserContext()
@@ -30,8 +29,7 @@ namespace Bull.Ga.Business.Modules
                     user = new UserAuth
                     {
                         UserId = "dummy.user",
-                        FullName = "Dummy User",
-                        IsPermitToLogin = true,
+                        FullName = "dummy user",
                         AppSource = "TempWeb",
                     };
                 }
@@ -46,7 +44,7 @@ namespace Bull.Ga.Business.Modules
             catch (Exception ex)
             {
                 _logger.LogError($"method: GetUserContext(), " +
-                $"message: {ex.Message}");
+                   $"message: {ex.Message}");
                 throw;
             }
         }

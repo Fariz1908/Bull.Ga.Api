@@ -51,8 +51,6 @@ public partial class DataContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedNever();
 
             entity.HasOne(d => d.FidDeliveryOrderNavigation).WithMany(p => p.Assets).HasConstraintName("FK_Assets_Delivery_Order");
-
-            entity.HasOne(d => d.FidItemNavigation).WithMany(p => p.Assets).HasConstraintName("FK_Assets_Items");
         });
 
         modelBuilder.Entity<AssetCategory>(entity =>
@@ -116,7 +114,9 @@ public partial class DataContext : DbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.FidAssetCategoryNavigation).WithMany(p => p.Items).HasConstraintName("FK_Items_Asset_Categories");
+            entity.HasOne(d => d.FidAssetCategoryNavigation).WithMany(p => p.Items)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Items_Asset_Categories");
         });
 
         modelBuilder.Entity<Location>(entity =>
