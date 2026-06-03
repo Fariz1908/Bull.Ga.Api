@@ -10,6 +10,7 @@ namespace Bull.Ga.Business.Interfaces
         IQueryable<Company> GetAllCompanies();
         IQueryable<Department> GetAllDepartments();
         IQueryable<DepreciationMethod> GetAllDepreciationMethods();
+        IQueryable<Item> GetAllItems();
         IQueryable<Location> GetAllLocations();
         IQueryable<LocationLog> GetAllLocationLogs();
 
@@ -22,6 +23,8 @@ namespace Bull.Ga.Business.Interfaces
         void UpdateCompany(Company model);
         void InsertDepartment(Department model);
         void UpdateDepartment(Department model);
+        void InsertItem(Item model);
+        void UpdateItem(Item model);
         void InsertLocation(Location model);
         void UpdateLocation(Location model);
         void InsertLocationLog(LocationLog model);

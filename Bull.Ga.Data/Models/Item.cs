@@ -11,18 +11,21 @@ public partial class Item
 
     [StringLength(150)]
     [Unicode(false)]
-    public string? Name { get; set; }
+    public string Name { get; set; } = null!;
 
     [Column("Fid_Asset_Category")]
-    public int? FidAssetCategory { get; set; }
+    public int FidAssetCategory { get; set; }
+
+    [Column("Is_Active")]
+    public bool? IsActive { get; set; }
 
     [Column("Created_By")]
     [StringLength(50)]
     [Unicode(false)]
-    public string? CreatedBy { get; set; }
+    public string CreatedBy { get; set; } = null!;
 
     [Column("Created_At", TypeName = "datetime")]
-    public DateTime? CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     [Column("Updated_By")]
     [StringLength(50)]
@@ -32,10 +35,7 @@ public partial class Item
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
 
-    [InverseProperty("FidItemNavigation")]
-    public virtual ICollection<Asset> Assets { get; set; } = new List<Asset>();
-
     [ForeignKey("FidAssetCategory")]
     [InverseProperty("Items")]
-    public virtual AssetCategory? FidAssetCategoryNavigation { get; set; }
+    public virtual AssetCategory FidAssetCategoryNavigation { get; set; } = null!;
 }

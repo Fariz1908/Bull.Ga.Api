@@ -17,6 +17,10 @@
         public const string S_EXISTS_DEPARTMENT = "Department already exists";
         public const string S_SAVED_DEPARTMENT_SUCCESS = "Department saved successfully";
 
+        // Item
+        public const string S_EXISTS_ITEM = "Item already exists";
+        public const string S_SAVED_ITEM_SUCCESS = "Item saved successfully";
+
         // Location
         public const string S_EXISTS_LOCATION_FLOOR = "Location/floor already exists";
         public const string S_SAVED_LOCATION_SUCCESS = "Location saved successfully";

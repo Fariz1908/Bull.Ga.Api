@@ -93,7 +93,7 @@ namespace Bull.Ga.Business.Modules
                 catch (Exception ex)
                 {
                     _logger.LogError($"method: FindByIdLocation(), " +
-                        $"request: {id}, " +
+                        $"id: {id}, " +
                         $"message: {ex.Message}");
                     throw;
                 }

@@ -1,13 +1,12 @@
 ﻿namespace Bull.Ga.Common.AppModels
 {
-    public class LocationLogDto
+    public class ItemDto
     {
         public Guid Id { get; set; }
-        public string TransactionNo { get; set; }
-        public DateOnly SubmittedDate { get; set; }
-        public DateOnly? ReturnDate { get; set; }
-        public string? Location { get; set; }
-        public string? Remarks { get; set; }
+        public string ItemName { get; set; } = string.Empty;
+        public int FidAssetCategory { get; set; }
+        public string AssetCategoryName { get; set; } = string.Empty;
+        public bool IsActive { get; set; }
         public string CreatedBy { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
         public string? UpdatedBy { get; set; }

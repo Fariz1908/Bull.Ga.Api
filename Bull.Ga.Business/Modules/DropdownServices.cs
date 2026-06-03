@@ -141,6 +141,37 @@ namespace Bull.Ga.Business.Modules
             }).ConfigureAwait(false);
         }
 
+        public async Task<List<DropdownResponse>> Items(string? filter)
+        {
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    var result = new List<DropdownResponse>();
+
+                    var items = (from a in _domainServices.GetAllItems()
+                                  where a.Name.ToLower().Contains((filter ?? "").ToLower())
+                                  orderby a.Name ascending
+                                  select new DropdownResponse
+                                               {
+                                                   Key = a.Id.ToString(),
+                                                   Value = a.Name ?? string.Empty
+                                               }).ToList();
+
+                    if (items.Count > 0)
+                        result = items;
+
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"method: Items(), " +
+                    $"message: {ex.Message}");
+                    throw;
+                }
+            }).ConfigureAwait(false);
+        }
+
         public async Task<List<DropdownResponse>> Locations(string? filter)
         {
             return await Task.Run(() =>
