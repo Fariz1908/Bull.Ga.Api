@@ -5,7 +5,6 @@
         public Guid? Id { get; set; }
         public string ItemName { get; set; } = string.Empty;
         public int FidAssetCategory { get; set; }
-        public string AssetCategoryName { get; set; } = string.Empty;
         public bool IsActive { get; set; }
     }
 }

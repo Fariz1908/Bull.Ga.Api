@@ -2,6 +2,7 @@
 using Bull.Ga.Common.AppModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Bull.Ga.Business.Modules
 {
@@ -11,10 +12,10 @@ namespace Bull.Ga.Business.Modules
         private readonly ILogger<ProfileServices> _logger;
         private readonly AppSettings _appSettings;
 
-        public ProfileServices(IHttpContextAccessor httpContextAccessor, AppSettings appSettings, ILogger<ProfileServices> logger)
+        public ProfileServices(IHttpContextAccessor httpContextAccessor, ILogger<ProfileServices> logger, IOptions<AppSettings> appSettings)
         {
             _httpContextAccessor = httpContextAccessor;
-            _appSettings = appSettings;
+            _appSettings = appSettings.Value;
             _logger = logger;
         }
 
