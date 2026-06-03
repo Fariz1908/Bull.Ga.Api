@@ -121,7 +121,7 @@ namespace Bull.Ga.Business.Modules
                     };
 
                     var item = new Item();
-                    if (request.Id == null)
+                    if (request.Id != null)
                     {
                         var existItem = _domainServices.GetAllItems()
                                         .SingleOrDefault(x => x.Name.Trim().ToLower() == request.ItemName.Trim().ToLower() 

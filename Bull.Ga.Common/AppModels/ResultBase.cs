@@ -10,7 +10,7 @@
         /// <summary>
         /// The friendly message fire out
         /// </summary>
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
     }
 
     public class ResultBase<T>
@@ -23,11 +23,11 @@
         /// <summary>
         /// The friendly message fire out
         /// </summary>
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
 
         /// <summary>
         /// idreturn
         /// </summary>
-        public T Model { get; set; }
+        public T? Model { get; set; }
     }
 }
