@@ -5,22 +5,23 @@ using Bull.Ga.Common.DtoModels;
 
 namespace Bull.Ga.Business.Facades
 {
-    public class ItemFacades : IItemFacades
+    public class BpathFacades : IBpathDataFacades
+
     {
-        private readonly IItemServices _itemServices;
+        private readonly IBpathDataServices _bpathDataServices;
 
-        public ItemFacades(IItemServices itemServices)
+        public BpathFacades(IBpathDataServices bpathDataServices)
         {
-            _itemServices = itemServices;
+            _bpathDataServices = bpathDataServices;
         }
 
-        public async Task<ResultBase<ItemListResponse>> FindAllItems(ItemListRequest request)
+        public async Task<ResultBase<EmployeeListResponse>> FindAllEmployees(EmployeeListRequest request)
         {
-            var result = await _itemServices.FindAllItems(request);
+            var result = await _bpathDataServices.FindAllEmployees(request);
 
             if (result != null)
             {
-                return new ResultBase<ItemListResponse>
+                return new ResultBase<EmployeeListResponse>
                 {
                     Success = true,
                     Message = "Success",
@@ -28,7 +29,7 @@ namespace Bull.Ga.Business.Facades
                 };
             }
 
-            var errorResponse = new ResultBase<ItemListResponse>
+            var errorResponse = new ResultBase<EmployeeListResponse>
             {
                 Success = false,
                 Message = MessageConstants.S_DATA_NOT_FOUND,
@@ -38,13 +39,13 @@ namespace Bull.Ga.Business.Facades
             return errorResponse;
         }
 
-        public async Task<ResultBase<ItemDto>> FindItemById(Guid id)
+        public async Task<ResultBase<PoDetailListResponse>> FindAllPoDetails(PoDetailListRequest request)
         {
-            var result = await _itemServices.FindItemById(id);
+            var result = await _bpathDataServices.FindAllPoDetails(request);
 
             if (result != null)
             {
-                return new ResultBase<ItemDto>
+                return new ResultBase<PoDetailListResponse>
                 {
                     Success = true,
                     Message = "Success",
@@ -52,7 +53,7 @@ namespace Bull.Ga.Business.Facades
                 };
             }
 
-            var errorResponse = new ResultBase<ItemDto>
+            var errorResponse = new ResultBase<PoDetailListResponse>
             {
                 Success = false,
                 Message = MessageConstants.S_DATA_NOT_FOUND,
@@ -60,13 +61,6 @@ namespace Bull.Ga.Business.Facades
             };
 
             return errorResponse;
-        }
-
-        public async Task<ResultBase> SaveItem(ItemInputRequest request)
-        {
-            var result = await _itemServices.SaveItem(request);
-
-            return result;
         }
     }
 }

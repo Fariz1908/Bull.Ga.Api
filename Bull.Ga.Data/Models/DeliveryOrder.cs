@@ -19,14 +19,10 @@ public partial class DeliveryOrder
     public Guid FidPo { get; set; }
 
     [Column("Fid_Company")]
-    [StringLength(50)]
-    [Unicode(false)]
-    public string FidCompany { get; set; } = null!;
+    public Guid FidCompany { get; set; }
 
     [Column("Fid_Dept")]
-    [StringLength(5)]
-    [Unicode(false)]
-    public string FidDept { get; set; } = null!;
+    public Guid FidDept { get; set; }
 
     [Column("Fid_Employee_Recieved")]
     public int FidEmployeeRecieved { get; set; }
@@ -61,4 +57,12 @@ public partial class DeliveryOrder
 
     [InverseProperty("FidDeliveryOrderNavigation")]
     public virtual ICollection<DeliveryOrderDetail> DeliveryOrderDetails { get; set; } = new List<DeliveryOrderDetail>();
+
+    [ForeignKey("FidCompany")]
+    [InverseProperty("DeliveryOrders")]
+    public virtual Company FidCompanyNavigation { get; set; } = null!;
+
+    [ForeignKey("FidDept")]
+    [InverseProperty("DeliveryOrders")]
+    public virtual Department FidDeptNavigation { get; set; } = null!;
 }

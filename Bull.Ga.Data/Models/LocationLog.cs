@@ -16,7 +16,7 @@ public partial class LocationLog
     public string TranscationNo { get; set; } = null!;
 
     [Column("Fid_Asset")]
-    public Guid? FidAsset { get; set; }
+    public Guid FidAsset { get; set; }
 
     [Column("Submitted_Date")]
     public DateOnly SubmittedDate { get; set; }
@@ -47,4 +47,8 @@ public partial class LocationLog
 
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
+
+    [ForeignKey("FidAsset")]
+    [InverseProperty("LocationLogs")]
+    public virtual Asset FidAssetNavigation { get; set; } = null!;
 }

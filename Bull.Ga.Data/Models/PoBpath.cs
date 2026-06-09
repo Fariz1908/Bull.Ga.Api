@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bull.Ga.Data.Models;
 
-[Table("Po")]
-public partial class Po
+[Table("Po_Bpath")]
+public partial class PoBpath
 {
     [Key]
     public Guid Id { get; set; }
@@ -20,7 +20,7 @@ public partial class Po
     [Unicode(false)]
     public string? PoNo { get; set; }
 
-    [Column("Po_IdNo")]
+    [Column("Po_Id_No")]
     [StringLength(50)]
     [Unicode(false)]
     public string? PoIdNo { get; set; }
@@ -108,11 +108,4 @@ public partial class Po
     [StringLength(50)]
     [Unicode(false)]
     public string? IsDelete { get; set; }
-
-    [Column("Po_Attachment")]
-    [Unicode(false)]
-    public string? PoAttachment { get; set; }
-
-    [InverseProperty("FidPoNavigation")]
-    public virtual ICollection<DeliveryOrder> DeliveryOrders { get; set; } = new List<DeliveryOrder>();
 }

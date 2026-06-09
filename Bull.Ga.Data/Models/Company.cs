@@ -35,4 +35,10 @@ public partial class Company
 
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
+
+    [InverseProperty("FidCompanyNavigation")]
+    public virtual ICollection<Asset> Assets { get; set; } = new List<Asset>();
+
+    [InverseProperty("FidCompanyNavigation")]
+    public virtual ICollection<DeliveryOrder> DeliveryOrders { get; set; } = new List<DeliveryOrder>();
 }

@@ -35,6 +35,9 @@ public partial class Item
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
 
+    [InverseProperty("FidItemNavigation")]
+    public virtual ICollection<Asset> Assets { get; set; } = new List<Asset>();
+
     [ForeignKey("FidAssetCategory")]
     [InverseProperty("Items")]
     public virtual AssetCategory FidAssetCategoryNavigation { get; set; } = null!;

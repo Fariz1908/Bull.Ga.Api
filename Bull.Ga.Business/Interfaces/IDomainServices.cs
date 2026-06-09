@@ -10,9 +10,14 @@ namespace Bull.Ga.Business.Interfaces
         IQueryable<Company> GetAllCompanies();
         IQueryable<Department> GetAllDepartments();
         IQueryable<DepreciationMethod> GetAllDepreciationMethods();
+        IQueryable<Employee> GetAllEmployees();
         IQueryable<Item> GetAllItems();
         IQueryable<Location> GetAllLocations();
         IQueryable<LocationLog> GetAllLocationLogs();
+        IQueryable<PoBpath> GetAllPoBpath();
+        IQueryable<PoDetailBpath> GetAllPoDetailBpath();
+        IQueryable<PrBpath> GetAllPrBpath();
+        IQueryable<PrDetailBpath> GetAllPrDetailBpath();
 
         // Create, Update & Delete
         void InsertAssetCategory(AssetCategory model);

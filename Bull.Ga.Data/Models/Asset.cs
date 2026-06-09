@@ -15,7 +15,7 @@ public partial class Asset
     public string AssetNo { get; set; } = null!;
 
     [Column("Fid_Item")]
-    public Guid? FidItem { get; set; }
+    public Guid FidItem { get; set; }
 
     [StringLength(100)]
     [Unicode(false)]
@@ -30,11 +30,17 @@ public partial class Asset
     [Unicode(false)]
     public string? SerialNumber { get; set; }
 
+    [Column("Fid_Company")]
+    public Guid FidCompany { get; set; }
+
+    [Column("Fid_Department")]
+    public Guid FidDepartment { get; set; }
+
     [Column("Fid_Location")]
-    public Guid? FidLocation { get; set; }
+    public Guid FidLocation { get; set; }
 
     [Column("Fid_Delivery_Order")]
-    public Guid? FidDeliveryOrder { get; set; }
+    public Guid FidDeliveryOrder { get; set; }
 
     [Column("Purchase_Date")]
     public DateOnly? PurchaseDate { get; set; }
@@ -66,7 +72,32 @@ public partial class Asset
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
 
+    [InverseProperty("FidAssetNavigation")]
+    public virtual ICollection<DepreciationLog> DepreciationLogs { get; set; } = new List<DepreciationLog>();
+
+    [ForeignKey("FidCompany")]
+    [InverseProperty("Assets")]
+    public virtual Company FidCompanyNavigation { get; set; } = null!;
+
     [ForeignKey("FidDeliveryOrder")]
     [InverseProperty("Assets")]
-    public virtual DeliveryOrder? FidDeliveryOrderNavigation { get; set; }
+    public virtual DeliveryOrder FidDeliveryOrderNavigation { get; set; } = null!;
+
+    [ForeignKey("FidDepartment")]
+    [InverseProperty("Assets")]
+    public virtual Department FidDepartmentNavigation { get; set; } = null!;
+
+    [ForeignKey("FidItem")]
+    [InverseProperty("Assets")]
+    public virtual Item FidItemNavigation { get; set; } = null!;
+
+    [ForeignKey("FidLocation")]
+    [InverseProperty("Assets")]
+    public virtual Location FidLocationNavigation { get; set; } = null!;
+
+    [InverseProperty("FidAssetNavigation")]
+    public virtual ICollection<LocationLog> LocationLogs { get; set; } = new List<LocationLog>();
+
+    [InverseProperty("FidAssetNavigation")]
+    public virtual ICollection<MaintenanceLog> MaintenanceLogs { get; set; } = new List<MaintenanceLog>();
 }

@@ -11,7 +11,7 @@ public partial class MaintenanceLog
     public Guid Id { get; set; }
 
     [Column("Fid_Asset")]
-    public Guid? FidAsset { get; set; }
+    public Guid FidAsset { get; set; }
 
     [Column("Maintenance_Date")]
     public DateOnly? MaintenanceDate { get; set; }
@@ -40,4 +40,8 @@ public partial class MaintenanceLog
 
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
+
+    [ForeignKey("FidAsset")]
+    [InverseProperty("MaintenanceLogs")]
+    public virtual Asset FidAssetNavigation { get; set; } = null!;
 }

@@ -6,6 +6,6 @@ namespace Bull.Ga.Common.DtoModels
     {
         public string? ItemName { get; set; } = string.Empty;
         public string? AssetCategoryName { get; set; } = string.Empty;
-        public List<ItemDto> Items { get; set; } = new List<ItemDto>();
+        public List<ItemDto>? Items { get; set; }
     }
 }
