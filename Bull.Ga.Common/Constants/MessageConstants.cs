@@ -4,6 +4,10 @@
     {
         // Common
         public const string S_DATA_NOT_FOUND = "Data not found";
+
+        // Asset
+        public const string S_EXISTS_ASSET = "Asset name already exists";
+        public const string S_SAVED_ASSET_SUCCESS = "Asset saved successfully";
         
         // Asset Category
         public const string S_EXISTS_ASSET_CATEGORY = "Asset category name already exists";

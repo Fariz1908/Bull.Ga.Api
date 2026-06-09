@@ -16,14 +16,14 @@ namespace Bull.Ga.Business
             _logger = logger;
         }
 
-        public IQueryable<AssetCategory> GetAllAssetCategories()
-        {
-            return _dataContext.AssetCategories;
-        }
-
         public IQueryable<Asset> GetAllAssets()
         {
             return _dataContext.Assets;
+        }
+
+        public IQueryable<AssetCategory> GetAllAssetCategories()
+        {
+            return _dataContext.AssetCategories;
         }
 
         public IQueryable<Company> GetAllCompanies()
@@ -81,36 +81,6 @@ namespace Bull.Ga.Business
             return _dataContext.PrDetailBpaths;
         }
 
-        public void InsertAssetCategory(AssetCategory model)
-        {
-            try
-            {
-                _dataContext.AssetCategories.Add(model);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Method: InsertAssetCategory(), " +
-                    $"model: {model}, " +
-                    $"message: {ex.Message}");
-                throw;
-            }
-        }
-
-        public void UpdateAssetCategory(AssetCategory model)
-        {
-            try
-            {
-                _dataContext.AssetCategories.Update(model);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Method: UpdateAssetCategory(), " +
-                    $"model: {model}, " +
-                    $"message: {ex.Message}");
-                throw;
-            }
-        }
-
         public void InsertAsset(Asset model)
         {
             try
@@ -135,6 +105,36 @@ namespace Bull.Ga.Business
             catch (Exception ex)
             {
                 _logger.LogError($"Method: UpdateAsset(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void InsertAssetCategory(AssetCategory model)
+        {
+            try
+            {
+                _dataContext.AssetCategories.Add(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: InsertAssetCategory(), " +
+                    $"model: {model}, " +
+                    $"message: {ex.Message}");
+                throw;
+            }
+        }
+
+        public void UpdateAssetCategory(AssetCategory model)
+        {
+            try
+            {
+                _dataContext.AssetCategories.Update(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Method: UpdateAssetCategory(), " +
                     $"model: {model}, " +
                     $"message: {ex.Message}");
                 throw;

@@ -5,8 +5,8 @@ namespace Bull.Ga.Business.Interfaces
     public interface IDomainServices
     {
         // Read Models
-        IQueryable<AssetCategory> GetAllAssetCategories();
         IQueryable<Asset> GetAllAssets();
+        IQueryable<AssetCategory> GetAllAssetCategories();
         IQueryable<Company> GetAllCompanies();
         IQueryable<Department> GetAllDepartments();
         IQueryable<DepreciationMethod> GetAllDepreciationMethods();
@@ -20,10 +20,10 @@ namespace Bull.Ga.Business.Interfaces
         IQueryable<PrDetailBpath> GetAllPrDetailBpath();
 
         // Create, Update & Delete
-        void InsertAssetCategory(AssetCategory model);
-        void UpdateAssetCategory(AssetCategory model);
         void InsertAsset(Asset model);
         void UpdateAsset(Asset model);
+        void InsertAssetCategory(AssetCategory model);
+        void UpdateAssetCategory(AssetCategory model);
         void InsertCompany(Company model);
         void UpdateCompany(Company model);
         void InsertDepartment(Department model);
