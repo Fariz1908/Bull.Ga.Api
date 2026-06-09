@@ -1,6 +1,5 @@
 ﻿using Bull.Ga.Api.Authorization;
 using Bull.Ga.Business.Interfaces;
-using Bull.Ga.Common.AppModels;
 using Bull.Ga.Common.DtoModels;
 using Microsoft.AspNetCore.Mvc;
 

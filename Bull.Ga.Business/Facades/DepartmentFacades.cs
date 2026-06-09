@@ -1,5 +1,6 @@
 ﻿using Bull.Ga.Business.Interfaces;
 using Bull.Ga.Common.AppModels;
+using Bull.Ga.Common.Constants;
 using Bull.Ga.Common.DtoModels;
 using Bull.Ga.Data.Models;
 
@@ -23,7 +24,7 @@ namespace Bull.Ga.Business.Facades
                 return new ResultBase<DepartmentListResponse>
                 {
                     Success = true,
-                    Message = "Sukses",
+                    Message = "Success",
                     Model = result
                 };
             }
@@ -31,7 +32,7 @@ namespace Bull.Ga.Business.Facades
             var errorResponse = new ResultBase<DepartmentListResponse>
             {
                 Success = false,
-                Message = "Data tidak ditemukan",
+                Message = MessageConstants.S_DATA_NOT_FOUND,
                 Model = result
             };
 
@@ -47,7 +48,7 @@ namespace Bull.Ga.Business.Facades
                 return new ResultBase<Department>
                 {
                     Success = true,
-                    Message = "Sukses",
+                    Message = "Success",
                     Model = result
                 };
             }
@@ -55,7 +56,7 @@ namespace Bull.Ga.Business.Facades
             var errorResponse = new ResultBase<Department>
             {
                 Success = false,
-                Message = "Data tidak ditemukan",
+                Message = MessageConstants.S_DATA_NOT_FOUND,
                 Model = result
             };
 

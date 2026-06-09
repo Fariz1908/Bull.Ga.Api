@@ -1,5 +1,6 @@
 ﻿using Bull.Ga.Business.Interfaces;
 using Bull.Ga.Common.AppModels;
+using Bull.Ga.Common.Constants;
 using Bull.Ga.Common.DtoModels;
 
 namespace Bull.Ga.Business.Facades
@@ -22,7 +23,7 @@ namespace Bull.Ga.Business.Facades
                 return new ResultBase<List<DropdownResponse>>
                 {
                     Success = true,
-                    Message = "Sukses",
+                    Message = "Success",
                     Model = result
                 };
             }
@@ -30,7 +31,7 @@ namespace Bull.Ga.Business.Facades
             var errorResponse = new ResultBase<List<DropdownResponse>>
             {
                 Success = false,
-                Message = "Data tidak ditemukan",
+                Message = MessageConstants.S_DATA_NOT_FOUND,
                 Model = result
             };
 
@@ -46,7 +47,7 @@ namespace Bull.Ga.Business.Facades
                 return new ResultBase<List<DropdownResponse>>
                 {
                     Success = true,
-                    Message = "Sukses",
+                    Message = "Success",
                     Model = result
                 };
             }
@@ -54,7 +55,7 @@ namespace Bull.Ga.Business.Facades
             var errorResponse = new ResultBase<List<DropdownResponse>>
             {
                 Success = false,
-                Message = "Data tidak ditemukan",
+                Message = MessageConstants.S_DATA_NOT_FOUND,
                 Model = result
             };
 
@@ -70,7 +71,7 @@ namespace Bull.Ga.Business.Facades
                 return new ResultBase<List<DropdownResponse>>
                 {
                     Success = true,
-                    Message = "Sukses",
+                    Message = "Success",
                     Model = result
                 };
             }
@@ -78,7 +79,7 @@ namespace Bull.Ga.Business.Facades
             var errorResponse = new ResultBase<List<DropdownResponse>>
             {
                 Success = false,
-                Message = "Data tidak ditemukan",
+                Message = MessageConstants.S_DATA_NOT_FOUND,
                 Model = result
             };
 
@@ -94,7 +95,7 @@ namespace Bull.Ga.Business.Facades
                 return new ResultBase<List<DropdownResponse>>
                 {
                     Success = true,
-                    Message = "Sukses",
+                    Message = "Success",
                     Model = result
                 };
             }
@@ -102,7 +103,7 @@ namespace Bull.Ga.Business.Facades
             var errorResponse = new ResultBase<List<DropdownResponse>>
             {
                 Success = false,
-                Message = "Data tidak ditemukan",
+                Message = MessageConstants.S_DATA_NOT_FOUND,
                 Model = result
             };
 
@@ -118,7 +119,7 @@ namespace Bull.Ga.Business.Facades
                 return new ResultBase<List<DropdownResponse>>
                 {
                     Success = true,
-                    Message = "Sukses",
+                    Message = "Success",
                     Model = result
                 };
             }
@@ -126,7 +127,7 @@ namespace Bull.Ga.Business.Facades
             var errorResponse = new ResultBase<List<DropdownResponse>>
             {
                 Success = false,
-                Message = "Data tidak ditemukan",
+                Message = MessageConstants.S_DATA_NOT_FOUND,
                 Model = result
             };
 
@@ -142,7 +143,7 @@ namespace Bull.Ga.Business.Facades
                 return new ResultBase<List<DropdownResponse>>
                 {
                     Success = true,
-                    Message = "Sukses",
+                    Message = "Success",
                     Model = result
                 };
             }
@@ -150,7 +151,7 @@ namespace Bull.Ga.Business.Facades
             var errorResponse = new ResultBase<List<DropdownResponse>>
             {
                 Success = false,
-                Message = "Data tidak ditemukan",
+                Message = MessageConstants.S_DATA_NOT_FOUND,
                 Model = result
             };
 

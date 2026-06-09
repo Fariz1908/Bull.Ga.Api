@@ -10,7 +10,7 @@ public partial class DepreciationLog
     public Guid Id { get; set; }
 
     [Column("Fid_Asset")]
-    public Guid? FidAsset { get; set; }
+    public Guid FidAsset { get; set; }
 
     [Column("Period_Date")]
     public DateOnly? PeriodDate { get; set; }
@@ -20,4 +20,8 @@ public partial class DepreciationLog
 
     [Column("Book_Value")]
     public int? BookValue { get; set; }
+
+    [ForeignKey("FidAsset")]
+    [InverseProperty("DepreciationLogs")]
+    public virtual Asset FidAssetNavigation { get; set; } = null!;
 }

@@ -11,7 +11,7 @@ public partial class DeliveryOrderDetail
     public Guid Id { get; set; }
 
     [Column("Fid_Delivery_Order")]
-    public Guid? FidDeliveryOrder { get; set; }
+    public Guid FidDeliveryOrder { get; set; }
 
     [StringLength(100)]
     [Unicode(false)]
@@ -29,5 +29,5 @@ public partial class DeliveryOrderDetail
 
     [ForeignKey("FidDeliveryOrder")]
     [InverseProperty("DeliveryOrderDetails")]
-    public virtual DeliveryOrder? FidDeliveryOrderNavigation { get; set; }
+    public virtual DeliveryOrder FidDeliveryOrderNavigation { get; set; } = null!;
 }

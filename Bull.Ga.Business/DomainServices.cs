@@ -41,6 +41,11 @@ namespace Bull.Ga.Business
             return _dataContext.DepreciationMethods;
         }
 
+        public IQueryable<Employee> GetAllEmployees()
+        {
+            return _dataContext.Employees;
+        }
+
         public IQueryable<Item> GetAllItems()
         {
             return _dataContext.Items;
@@ -51,9 +56,29 @@ namespace Bull.Ga.Business
             return _dataContext.Locations;
         }
 
+        public IQueryable<PoBpath> GetAllPoBpath()
+        {
+            return _dataContext.PoBpaths;
+        }
+
         public IQueryable<LocationLog> GetAllLocationLogs()
         {
             return _dataContext.LocationLogs;
+        }
+
+        public IQueryable<PoDetailBpath> GetAllPoDetailBpath()
+        {
+            return _dataContext.PoDetailBpaths;
+        }
+
+        public IQueryable<PrBpath> GetAllPrBpath()
+        {
+            return _dataContext.PrBpaths;
+        }
+
+        public IQueryable<PrDetailBpath> GetAllPrDetailBpath()
+        {
+            return _dataContext.PrDetailBpaths;
         }
 
         public void InsertAssetCategory(AssetCategory model)
