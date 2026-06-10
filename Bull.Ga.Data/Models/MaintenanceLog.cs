@@ -40,8 +40,4 @@ public partial class MaintenanceLog
 
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
-
-    [ForeignKey("FidAsset")]
-    [InverseProperty("MaintenanceLogs")]
-    public virtual Asset FidAssetNavigation { get; set; } = null!;
 }

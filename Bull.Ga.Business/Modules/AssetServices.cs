@@ -4,9 +4,6 @@ using Bull.Ga.Common.Constants;
 using Bull.Ga.Common.DtoModels;
 using Bull.Ga.Data.Models;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bull.Ga.Business.Modules
 {
@@ -26,84 +23,112 @@ namespace Bull.Ga.Business.Modules
         public async Task<ResultBase> SaveAsset(AssetInputRequest request)
         {
             return await Task.Run(() =>
-                {
-                    var now = DateTime.Now;
-                    var userContext = _profileServices.GetUserContext();
-                    var currentUser = userContext.UserId;
-                    var currentApp = userContext.AppSource;
+            {
+                var now = DateTime.Now;
+                var userContext = _profileServices.GetUserContext();
+                var currentUser = userContext.UserId;
+                var currentApp = userContext.AppSource;
 
-                    try
+                try
+                {
+                    var result = new ResultBase
                     {
-                        var result = new ResultBase
+                        Success = false,
+                        Message = string.Empty
+                    };
+
+                    var asset = new Asset();
+                    if (request.Id != null)
+                    {
+                        asset = _domainServices.GetAllAssets().SingleOrDefault(x => x.Id.Equals(request.Id));
+                        if (asset == null)
+                            throw new Exception(MessageConstants.S_DATA_NOT_FOUND);
+
+                        asset.FidItem = request.FidItem;
+                        asset.Merk = request.Merk.ToUpper();
+                        asset.SerialNumber = request.SerialNumber;
+                        asset.FidCompany = request.FidCompany;
+                        asset.FidDepartment = request.FidDepartment;
+                        asset.FidDeliveryOrder = request.FidDeliveryOrder;
+                        asset.RefPoNo = request.RefPoNo;
+                        asset.PurchaseDate = request.PurchaseDate;
+                        asset.Supplier = request.Supplier;
+                        asset.PurchaseAmount = request.PurchaseAmount;
+                        asset.Remark = request.Remark;
+
+                        asset.UpdatedBy = currentUser;
+                        asset.UpdatedAt = now;
+
+                        _domainServices.UpdateAsset(asset);
+                    }
+                    else
+                    {
+                        string assetNo = GenerateAssetNo(request.FidCompany, request.FidDepartment, request.FidItem, request.PurchaseDate);
+                        if (string.IsNullOrEmpty(assetNo))
+                            throw new Exception("Generate Asset No Error");
+
+                        asset = new Asset
                         {
-                            Success = false,
-                            Message = string.Empty
+                            Id = Guid.NewGuid(),
+                            AssetNo = assetNo,
+                            FidItem = request.FidItem,
+                            Merk = request.Merk,
+                            SerialNumber = request.SerialNumber,
+                            FidCompany = request.FidCompany,
+                            FidDepartment = request.FidDepartment,
+                            FidDeliveryOrder = request.FidDeliveryOrder,
+                            RefPoNo = request.RefPoNo,
+                            PurchaseDate = request.PurchaseDate,
+                            PurchaseAmount = request.PurchaseAmount,
+                            Remark = request.Remark,
+
+                            CreatedBy = currentUser,
+                            CreatedAt = now,
                         };
 
-                        int maxId = _domainServices.GetAllAssetCategories().DefaultIfEmpty().Max(x => x == null ? 0 : x.Id);
-
-                        var assetCategory = new AssetCategory();
-                        if (request.Id != null)
-                        {
-                            var existAssetCategory = _domainServices.GetAllAssetCategories()
-                                                    .SingleOrDefault(x => x.Name.Trim().ToLower().Equals(request.Name.Trim().ToLower())
-                                                    && x.Id != request.Id);
-                            if (existAssetCategory != null)
-                                throw new Exception(MessageConstants.S_EXISTS_ASSET_CATEGORY);
-
-                            assetCategory = _domainServices.GetAllAssetCategories().SingleOrDefault(x => x.Id.Equals(request.Id));
-                            if (assetCategory == null)
-                                throw new Exception(MessageConstants.S_DATA_NOT_FOUND);
-
-                            assetCategory.Name = request.Name.Trim().ToUpper();
-                            assetCategory.UsefulLifeYear = request.UsefulLifeYear;
-                            assetCategory.FidDepreciationMethod = request.IdDepreciationMethod;
-                            assetCategory.ResidualValue = request.ResidualValue;
-                            assetCategory.IsActive = request.IsActive;
-
-                            assetCategory.UpdatedBy = currentUser;
-                            assetCategory.UpdatedAt = now;
-
-                            _domainServices.UpdateAssetCategory(assetCategory);
-                        }
-                        else
-                        {
-                            var existAssetCategory = _domainServices.GetAllAssetCategories()
-                                                    .SingleOrDefault(x => x.Name.Trim().ToLower().Equals(request.Name.Trim().ToLower()));
-                            if (existAssetCategory != null)
-                                throw new Exception(MessageConstants.S_EXISTS_ASSET_CATEGORY);
-
-                            assetCategory = new AssetCategory
-                            {
-                                Id = ++maxId,
-                                Name = request.Name,
-                                UsefulLifeYear = request.UsefulLifeYear,
-                                FidDepreciationMethod = request.IdDepreciationMethod,
-                                ResidualValue = request.ResidualValue,
-                                IsActive = true,
-
-                                CreatedBy = currentUser,
-                                CreatedAt = now,
-                            };
-
-                            _domainServices.InsertAssetCategory(assetCategory);
-                        }
-
-                        _domainServices.SaveChanges();
-
-                        result.Success = true;
-                        result.Message = MessageConstants.S_SAVED_ASSET_SUCCESS;
-
-                        return result;
+                        _domainServices.InsertAsset(asset);
                     }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError($"method: SaveAsset(), " +
-                            $"request: {request}" +
-                            $"message: {ex.Message}");
-                        throw;
-                    }
-                }).ConfigureAwait(false);
+
+                    _domainServices.SaveChanges();
+
+                    result.Success = true;
+                    result.Message = MessageConstants.S_SAVED_ASSET_SUCCESS;
+
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"method: SaveAsset(), " +
+                        $"request: {request}" +
+                        $"message: {ex.Message}");
+                    throw;
+                }
+            }).ConfigureAwait(false);
+        }
+
+        public string GenerateAssetNo(Guid companyId, Guid departmentId, Guid itemId, DateOnly purchaseDate)
+        {
+            int maxId = _domainServices.GetAllAssetCategories().DefaultIfEmpty().Max(x => x == null ? 0 : x.Id);
+
+            string companyCode = _domainServices.GetAllCompanies()
+                                .Where(x => x.Id == companyId)
+                                .Select(x => x.Code)
+                                .SingleOrDefault() ?? string.Empty;
+
+            string deptCode = _domainServices.GetAllDepartments()
+                                .Where(x => x.Id == departmentId)
+                                .Select(x => x.Code)
+                                .SingleOrDefault() ?? string.Empty;
+
+            string itemCode = _domainServices.GetAllItems()
+                        .Where(x => x.Id == itemId)
+                        .Select(x => x.Code)
+                        .SingleOrDefault() ?? string.Empty;
+
+            string strPurchaseDate = purchaseDate.ToString("MM-yyyy");
+            string generateAssetNo = string.Concat(companyCode,"/",deptCode,"/",itemCode,"/",strPurchaseDate,"/","001");
+
+            return generateAssetNo;
         }
     }
 }

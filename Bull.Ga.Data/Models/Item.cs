@@ -9,6 +9,10 @@ public partial class Item
     [Key]
     public Guid Id { get; set; }
 
+    [StringLength(25)]
+    [Unicode(false)]
+    public string Code { get; set; } = null!;
+
     [StringLength(150)]
     [Unicode(false)]
     public string Name { get; set; } = null!;

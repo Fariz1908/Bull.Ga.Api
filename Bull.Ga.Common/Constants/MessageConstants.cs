@@ -6,9 +6,9 @@
         public const string S_DATA_NOT_FOUND = "Data not found";
 
         // Asset
-        public const string S_EXISTS_ASSET = "Asset name already exists";
         public const string S_SAVED_ASSET_SUCCESS = "Asset saved successfully";
-        
+        public const string S_GENERATE_ASSET_NO_FIRST = "Please generate asset no first";
+
         // Asset Category
         public const string S_EXISTS_ASSET_CATEGORY = "Asset category name already exists";
         public const string S_SAVED_ASSET_CATEGORY_SUCCESS = "Asset category saved successfully";
