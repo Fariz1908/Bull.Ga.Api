@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bull.Ga.Data.Models;
 
-[Table("Location_Log")]
+[Table("Location_Logs")]
 public partial class LocationLog
 {
     [Key]
@@ -24,9 +24,11 @@ public partial class LocationLog
     [Column("Return_Date")]
     public DateOnly? ReturnDate { get; set; }
 
-    [StringLength(150)]
-    [Unicode(false)]
-    public string? Location { get; set; }
+    [Column("Fid_Location")]
+    public Guid FidLocation { get; set; }
+
+    [Column("Fid_Employee")]
+    public int? FidEmployee { get; set; }
 
     [StringLength(200)]
     [Unicode(false)]
@@ -47,4 +49,19 @@ public partial class LocationLog
 
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
+
+    [Column("Is_Delete")]
+    public bool? IsDelete { get; set; }
+
+    [ForeignKey("FidAsset")]
+    [InverseProperty("LocationLogs")]
+    public virtual Asset FidAssetNavigation { get; set; } = null!;
+
+    [ForeignKey("FidEmployee")]
+    [InverseProperty("LocationLogs")]
+    public virtual Employee? FidEmployeeNavigation { get; set; }
+
+    [ForeignKey("FidLocation")]
+    [InverseProperty("LocationLogs")]
+    public virtual Location FidLocationNavigation { get; set; } = null!;
 }

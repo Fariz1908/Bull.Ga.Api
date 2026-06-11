@@ -44,6 +44,8 @@ public partial class DataContext : DbContext
 
     public virtual DbSet<PrDetailBpath> PrDetailBpaths { get; set; }
 
+    public virtual DbSet<Vendor> Vendors { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Asset>(entity =>
@@ -55,10 +57,6 @@ public partial class DataContext : DbContext
             entity.HasOne(d => d.FidCompanyNavigation).WithMany(p => p.Assets)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Assets_Companies");
-
-            entity.HasOne(d => d.FidDeliveryOrderNavigation).WithMany(p => p.Assets)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Assets_Delivery_Order");
 
             entity.HasOne(d => d.FidDepartmentNavigation).WithMany(p => p.Assets)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -100,6 +98,22 @@ public partial class DataContext : DbContext
             entity.HasOne(d => d.FidDeptNavigation).WithMany(p => p.DeliveryOrders)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Delivery_Order_Departments");
+
+            entity.HasOne(d => d.FidEmployeeAcknowledgeNavigation).WithMany(p => p.DeliveryOrderFidEmployeeAcknowledgeNavigations)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Delivery_Order_Employees_Ack");
+
+            entity.HasOne(d => d.FidEmployeeRecievedNavigation).WithMany(p => p.DeliveryOrderFidEmployeeRecievedNavigations)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Delivery_Order_Employees_Received");
+
+            entity.HasOne(d => d.FidEmployeeSentNavigation).WithMany(p => p.DeliveryOrderFidEmployeeSentNavigations)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Delivery_Order_Employees_Sent");
+
+            entity.HasOne(d => d.FidPoNavigation).WithMany(p => p.DeliveryOrders)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Delivery_Order_Po_Bpath");
         });
 
         modelBuilder.Entity<DeliveryOrderDetail>(entity =>
@@ -122,14 +136,25 @@ public partial class DataContext : DbContext
 
         modelBuilder.Entity<DepreciationLog>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Pkey_Depreciation_Log");
+            entity.HasKey(e => e.Id).HasName("Pkey_Depreciation_Logs");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.FidAssetNavigation).WithMany(p => p.DepreciationLogs)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Depreciation_Logs_Assets");
         });
 
         modelBuilder.Entity<DepreciationMethod>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Pkey_Depreciation_Methods");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+        });
+
+        modelBuilder.Entity<Employee>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Pkey_Employees");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
         });
@@ -154,16 +179,30 @@ public partial class DataContext : DbContext
 
         modelBuilder.Entity<LocationLog>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Pkey_Location_Log");
+            entity.HasKey(e => e.Id).HasName("Pkey_Location_Logs");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.FidAssetNavigation).WithMany(p => p.LocationLogs)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Location_Logs_Assets");
+
+            entity.HasOne(d => d.FidEmployeeNavigation).WithMany(p => p.LocationLogs).HasConstraintName("FK_Location_Logs_Employees");
+
+            entity.HasOne(d => d.FidLocationNavigation).WithMany(p => p.LocationLogs)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Location_Logs_Locations");
         });
 
         modelBuilder.Entity<MaintenanceLog>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Pkey_Maintenance_Log");
+            entity.HasKey(e => e.Id).HasName("Pkey_Maintenance_Logs");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.FidAssetNavigation).WithMany(p => p.MaintenanceLogs)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Maintenance_Logs_Assets");
         });
 
         modelBuilder.Entity<PoBpath>(entity =>
@@ -186,6 +225,11 @@ public partial class DataContext : DbContext
         modelBuilder.Entity<PrDetailBpath>(entity =>
         {
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())", "DF_Pr_Detail_Id");
+        });
+
+        modelBuilder.Entity<Vendor>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Pk_Vendor");
         });
 
         OnModelCreatingPartial(modelBuilder);

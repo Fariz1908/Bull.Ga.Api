@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bull.Ga.Data.Models;
 
-[Table("Depreciation_Log")]
+[Table("Depreciation_Logs")]
 public partial class DepreciationLog
 {
     [Key]
@@ -20,4 +20,8 @@ public partial class DepreciationLog
 
     [Column("Book_Value")]
     public int? BookValue { get; set; }
+
+    [ForeignKey("FidAsset")]
+    [InverseProperty("DepreciationLogs")]
+    public virtual Asset FidAssetNavigation { get; set; } = null!;
 }

@@ -4,10 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bull.Ga.Data.Models;
 
-[Keyless]
-[Table("Employee")]
 public partial class Employee
 {
+    [Key]
     public int Id { get; set; }
 
     [StringLength(50)]
@@ -38,4 +37,16 @@ public partial class Employee
 
     [Column("Is_Deleted")]
     public bool? IsDeleted { get; set; }
+
+    [InverseProperty("FidEmployeeAcknowledgeNavigation")]
+    public virtual ICollection<DeliveryOrder> DeliveryOrderFidEmployeeAcknowledgeNavigations { get; set; } = new List<DeliveryOrder>();
+
+    [InverseProperty("FidEmployeeRecievedNavigation")]
+    public virtual ICollection<DeliveryOrder> DeliveryOrderFidEmployeeRecievedNavigations { get; set; } = new List<DeliveryOrder>();
+
+    [InverseProperty("FidEmployeeSentNavigation")]
+    public virtual ICollection<DeliveryOrder> DeliveryOrderFidEmployeeSentNavigations { get; set; } = new List<DeliveryOrder>();
+
+    [InverseProperty("FidEmployeeNavigation")]
+    public virtual ICollection<LocationLog> LocationLogs { get; set; } = new List<LocationLog>();
 }

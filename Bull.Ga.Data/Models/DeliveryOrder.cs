@@ -53,9 +53,6 @@ public partial class DeliveryOrder
     public DateTime? UpdatedAt { get; set; }
 
     [InverseProperty("FidDeliveryOrderNavigation")]
-    public virtual ICollection<Asset> Assets { get; set; } = new List<Asset>();
-
-    [InverseProperty("FidDeliveryOrderNavigation")]
     public virtual ICollection<DeliveryOrderDetail> DeliveryOrderDetails { get; set; } = new List<DeliveryOrderDetail>();
 
     [ForeignKey("FidCompany")]
@@ -65,4 +62,20 @@ public partial class DeliveryOrder
     [ForeignKey("FidDept")]
     [InverseProperty("DeliveryOrders")]
     public virtual Department FidDeptNavigation { get; set; } = null!;
+
+    [ForeignKey("FidEmployeeAcknowledge")]
+    [InverseProperty("DeliveryOrderFidEmployeeAcknowledgeNavigations")]
+    public virtual Employee FidEmployeeAcknowledgeNavigation { get; set; } = null!;
+
+    [ForeignKey("FidEmployeeRecieved")]
+    [InverseProperty("DeliveryOrderFidEmployeeRecievedNavigations")]
+    public virtual Employee FidEmployeeRecievedNavigation { get; set; } = null!;
+
+    [ForeignKey("FidEmployeeSent")]
+    [InverseProperty("DeliveryOrderFidEmployeeSentNavigations")]
+    public virtual Employee FidEmployeeSentNavigation { get; set; } = null!;
+
+    [ForeignKey("FidPo")]
+    [InverseProperty("DeliveryOrders")]
+    public virtual PoBpath FidPoNavigation { get; set; } = null!;
 }

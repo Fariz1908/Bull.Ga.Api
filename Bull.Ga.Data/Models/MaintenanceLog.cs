@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bull.Ga.Data.Models;
 
-[Table("Maintenance_Log")]
+[Table("Maintenance_Logs")]
 public partial class MaintenanceLog
 {
     [Key]
@@ -12,6 +12,11 @@ public partial class MaintenanceLog
 
     [Column("Fid_Asset")]
     public Guid FidAsset { get; set; }
+
+    [Column("Ref_Po_No")]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string? RefPoNo { get; set; }
 
     [Column("Maintenance_Date")]
     public DateOnly? MaintenanceDate { get; set; }
@@ -40,4 +45,11 @@ public partial class MaintenanceLog
 
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
+
+    [Column("Is_Delete")]
+    public bool? IsDelete { get; set; }
+
+    [ForeignKey("FidAsset")]
+    [InverseProperty("MaintenanceLogs")]
+    public virtual Asset FidAssetNavigation { get; set; } = null!;
 }

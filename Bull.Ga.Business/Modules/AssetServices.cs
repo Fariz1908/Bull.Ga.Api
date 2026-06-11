@@ -49,7 +49,7 @@ namespace Bull.Ga.Business.Modules
                         asset.SerialNumber = request.SerialNumber;
                         asset.FidCompany = request.FidCompany;
                         asset.FidDepartment = request.FidDepartment;
-                        asset.FidDeliveryOrder = request.FidDeliveryOrder;
+                        //asset.FidDeliveryOrder = request.FidDeliveryOrder;
                         asset.RefPoNo = request.RefPoNo;
                         asset.PurchaseDate = request.PurchaseDate;
                         asset.Supplier = request.Supplier;
@@ -76,7 +76,7 @@ namespace Bull.Ga.Business.Modules
                             SerialNumber = request.SerialNumber,
                             FidCompany = request.FidCompany,
                             FidDepartment = request.FidDepartment,
-                            FidDeliveryOrder = request.FidDeliveryOrder,
+                            //FidDeliveryOrder = request.FidDeliveryOrder,
                             RefPoNo = request.RefPoNo,
                             PurchaseDate = request.PurchaseDate,
                             PurchaseAmount = request.PurchaseAmount,
@@ -108,8 +108,6 @@ namespace Bull.Ga.Business.Modules
 
         public string GenerateAssetNo(Guid companyId, Guid departmentId, Guid itemId, DateOnly purchaseDate)
         {
-            int maxId = _domainServices.GetAllAssetCategories().DefaultIfEmpty().Max(x => x == null ? 0 : x.Id);
-
             string companyCode = _domainServices.GetAllCompanies()
                                 .Where(x => x.Id == companyId)
                                 .Select(x => x.Code)
@@ -126,7 +124,15 @@ namespace Bull.Ga.Business.Modules
                         .SingleOrDefault() ?? string.Empty;
 
             string strPurchaseDate = purchaseDate.ToString("MM-yyyy");
-            string generateAssetNo = string.Concat(companyCode,"/",deptCode,"/",itemCode,"/",strPurchaseDate,"/","001");
+
+            int maxId = _domainServices.GetAllAssets()
+                        .Where(x => x.AssetNo.Contains(companyCode))
+                        .Select(x => int.Parse(x.AssetNo.Split('/').Last()))
+                        .DefaultIfEmpty(0)
+                        .Max();
+            int nextId = maxId++;
+
+            string generateAssetNo = string.Concat(companyCode,"/",deptCode,"/",itemCode,"/",strPurchaseDate,"/",nextId.ToString("D3"));
 
             return generateAssetNo;
         }

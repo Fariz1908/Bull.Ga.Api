@@ -36,4 +36,7 @@ public partial class Location
 
     [Column("Updated_At", TypeName = "datetime")]
     public DateTime? UpdatedAt { get; set; }
+
+    [InverseProperty("FidLocationNavigation")]
+    public virtual ICollection<LocationLog> LocationLogs { get; set; } = new List<LocationLog>();
 }

@@ -108,4 +108,7 @@ public partial class PoBpath
     [StringLength(50)]
     [Unicode(false)]
     public string? IsDelete { get; set; }
+
+    [InverseProperty("FidPoNavigation")]
+    public virtual ICollection<DeliveryOrder> DeliveryOrders { get; set; } = new List<DeliveryOrder>();
 }
