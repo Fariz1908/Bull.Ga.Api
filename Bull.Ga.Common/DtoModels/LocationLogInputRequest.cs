@@ -7,7 +7,8 @@
         public Guid FidAsset { get; set; }
         public DateOnly SubmittedDate { get; set; }
         public DateOnly ReturnDate { get; set; }
-        public string Location { get; set; } = string.Empty;
+        public Guid FidLocation { get; set; }
+        public int? FidEmployee { get; set; }
         public string Remarks { get; set; } = string.Empty;
     }
 }

@@ -28,14 +28,21 @@ namespace Bull.Ga.Business.Modules
                 {
                     var locationLog = (from a in _domainServices.GetAllLocationLogs()
                                        join b in _domainServices.GetAllAssets() on a.FidAsset equals b.Id
+                                       join c in _domainServices.GetAllLocations() on a.FidLocation equals c.Id
+                                       join d in _domainServices.GetAllEmployees() on a.FidEmployee equals d.Id into emp
+                                       from ad in emp.DefaultIfEmpty()
                                        where a.FidAsset == request.FidAsset
+                                        && a.IsDelete == false
                                        select new LocationLogDto
                                        {
                                            Id = a.Id,
                                            TransactionNo = a.TranscationNo,
                                            SubmittedDate = a.SubmittedDate,
                                            ReturnDate = a.ReturnDate,
-                                           Location = a.Location,
+                                           FidLocation = a.FidLocation,
+                                           Location = string.Concat(c.WorkLocation,"-",c.Floor),
+                                           FidEmployee = a.FidEmployee,
+                                           EmployeeName = ad.Name ?? string.Empty,
                                            Remarks = a.Remarks,
                                            CreatedBy = a.CreatedBy,
                                            CreatedAt = a.CreatedAt,
@@ -92,11 +99,13 @@ namespace Bull.Ga.Business.Modules
                             TranscationNo = "",
                             FidAsset = request.FidAsset,
                             SubmittedDate = request.SubmittedDate,
-                            Location = request.Location,
+                            FidLocation = request.FidLocation,
+                            FidEmployee = request.FidEmployee,
                             Remarks = request.Remarks,
 
                             CreatedBy = currentUser,
                             CreatedAt = now,
+                            IsDelete = false
                         };
 
                         _domainServices.InsertLocationLog(locationLog);
@@ -110,7 +119,8 @@ namespace Bull.Ga.Business.Modules
 
                         locationLog.SubmittedDate = request.SubmittedDate;
                         locationLog.ReturnDate = request.ReturnDate;
-                        locationLog.Location = request.Location;
+                        locationLog.FidLocation = request.FidLocation;
+                        locationLog.FidEmployee = request.FidEmployee;
                         locationLog.Remarks = request.Remarks;
 
                         locationLog.UpdatedBy = currentUser;

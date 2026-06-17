@@ -106,7 +106,7 @@ namespace Bull.Ga.Business.Modules
             }).ConfigureAwait(false);
         }
 
-        public string GenerateAssetNo(Guid companyId, Guid departmentId, Guid itemId, DateOnly purchaseDate)
+        private string GenerateAssetNo(Guid companyId, Guid departmentId, Guid itemId, DateOnly purchaseDate)
         {
             string companyCode = _domainServices.GetAllCompanies()
                                 .Where(x => x.Id == companyId)
